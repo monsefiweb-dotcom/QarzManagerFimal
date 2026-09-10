@@ -3,12 +3,24 @@ workflows:
     name: Qarz Manager Final Android
     max_build_duration: 60
     instance_type: mac_mini_m2
+
     scripts:
       - name: Set Android SDK location
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+
+      - name: Install Gradle
+        script: |
+          set -e
+          curl -fL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip
+          rm -rf /tmp/gradle
+          mkdir -p /tmp/gradle
+          unzip -q /tmp/gradle.zip -d /tmp/gradle
+
       - name: Build debug APK
         script: |
-          ./gradlew assembleDebug --no-daemon
+          set -e
+          /tmp/gradle/gradle-8.9/bin/gradle assembleDebug --no-daemon
+
     artifacts:
       - app/build/outputs/apk/debug/*.apk
