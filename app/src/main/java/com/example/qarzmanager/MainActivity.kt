@@ -109,7 +109,7 @@ class MainActivity : Activity() {
 
     private fun page(title:String, back:Boolean=true) {
         val scroll=ScrollView(this).apply {
-            fillViewport=true
+            setFillViewport(true)
             setBackgroundColor(if(dark) bgDark else bgLight)
         }
         root=LinearLayout(this).apply {
@@ -146,7 +146,7 @@ class MainActivity : Activity() {
         }
         bar.addView(h, LinearLayout.LayoutParams(0,dp(56),1f))
         root.addView(bar)
-        scroll.addView(root,ScrollView.LayoutParams(-1,-2))
+        scroll.addView(root,android.view.ViewGroup.LayoutParams(-1,-2))
         setContentView(scroll)
     }
 
@@ -168,6 +168,10 @@ class MainActivity : Activity() {
             setPadding(dp(4),dp(12),dp(4),dp(4))
         }
         root.addView(v,LinearLayout.LayoutParams(-1,dp(46)))
+    }
+
+    private fun button(text:String, action:()->Unit, primary:Boolean=false) {
+        button(text, primary, action)
     }
 
     private fun button(text:String, primary:Boolean=false, action:()->Unit) {
@@ -216,7 +220,7 @@ class MainActivity : Activity() {
         }
 
         val scroll = ScrollView(this).apply {
-            fillViewport = true
+            setFillViewport(true)
             setBackgroundColor(if (dark) bgDark else bgLight)
         }
 
@@ -410,7 +414,7 @@ class MainActivity : Activity() {
                 setPadding(0,dp(14),0,dp(4))
             })
 
-        scroll.addView(root, ScrollView.LayoutParams(-1,-2))
+        scroll.addView(root, android.view.ViewGroup.LayoutParams(-1,-2))
         screen.addView(scroll, LinearLayout.LayoutParams(-1,0,1f))
 
         // Bottom navigation
